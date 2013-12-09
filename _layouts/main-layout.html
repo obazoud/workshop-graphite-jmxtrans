@@ -34,7 +34,29 @@
 <h2>
 <a name="lapplication-cocktail-" class="anchor" href="#lapplication-cocktail-"><span class="octicon octicon-link"></span></a>L'application Cocktail :</h2>
 
-<p>Récupérer &amp; lancer l'application <a href="https://github.com/antoinemichaud/embedded-jmxtrans-samples">Cocktail</a></p>
+<p>Dans ce workshop, vous aurez à disposition 3 instances Amazon sur lesquelles se trouvent respectivement :
+<ul>
+  <li>Git + Java 7 + Maven 3 + Tomcat 7</li>
+  <li>Graphite</li>
+  <li>Gatling</li>
+</ul>
+
+<p>Récupérer l'application <a href="https://github.com/antoinemichaud/embedded-jmxtrans-samples">Cocktail</a></p>
+
+{% highlight bash %}
+$ git clone git@github.com:antoinemichaud/embedded-jmxtrans-samples.git
+{% endhighlight %}
+
+<p>Ouvrez votre <a href=="#">web app Graphite</a>. C'est dans cette interface que vous pourrez admirer les magnifiques graphes que vous allez bientôt commencer à alimenter.</p>
+
+<p>Connectez-vous en SSH à l'adresse de votre Tomcat</p>
+
+{% highlight bash %}
+$ ssh ubuntu@{{page.group}}.tomcat.workshop-jmxtrans-graphite.com
+{% endhighlight %}
+
+<p>Réc
+
 Template {{page.group}}
         </section>
 
