@@ -64,11 +64,29 @@ $ mvn clean package jetty:run
 
 <p>Une fois l'application terminée de démarrer, rendez-vous sur le port 8080 de votre toute nouvelle application</p>
 
-<p>Et pour nous récompenser de cette dure labeur achetons-nous 1 sex on the beach !
-{% highlight bash %}
-$ 
+<p>Et pour nous récompenser de cette dure labeur achetons-nous 1 sex on the beach.
+
+<h2>Configuration de JMXTrans</h2>
+
+<p>
+  Pour nous éviter l'installation d'un serveur JMXTrans, nous allons utiliser JMXTrans Embedded.
+  <ul>
+    <li>Inclure le plugin maven de JMXTrans dans les sources de l'application Cocktail (utiliser VIM pour éditer le POM par exemple);</li>
+    
+{% highlight xml %}
+&lt;dependency&gt;
+    &lt;groupId&gt;org.jmxtrans.embedded&lt;/groupId&gt;
+    &lt;artifactId&gt;embedded-jmxtrans&lt;/artifactId&gt;
+    &lt;version&gt;1.0.9-SNAPSHOT&lt;/version&gt;
+&lt;/dependency&gt;
 {% endhighlight %}
 
+  </ul>
+  Une fois la dépendance résolue, il faut configurer notre serveur JMXTrans embedded. JMXTrans embedded utilise un fichier JSON pour sa configuration.
+  <ul>
+    <li>Créer un fichier </li>
+  
+  
 
 {% highlight bash %}
 $ 
