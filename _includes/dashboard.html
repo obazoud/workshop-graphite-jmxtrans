@@ -1,0 +1,144 @@
+<div>
+    <h2>Dashboard Graphite</h2>
+    <p>Nous allons créer un dashboard personnalisé pour notre boutique en ligne.</p>
+    <p>Commencez par vous connecter à l'application web de Graphite : TODO</p>
+    <p>Cliquez sur l'onglet "Dashboard"</p>
+    <p>Une fois sur le dashboard vide vous pouvez ajouter des graphes en navigant parmis les noeuds proposés. Les statistiques JMX sont remontés sous les noeuds</p>
+    <code>
+        stats.cocktail.*
+    </code>
+    <h3>Configuration du dashboard</h3>
+    <p>Configurez le rafraichissement automatique du dashboard toutes les 60 secondes en cliquant sur le bouton "Auto-Refresh" en haut à droite du dashboard</p>
+    <img src="../images/auto-refresh.png" height="100"/>
+    <h3>Graphe simple</h3>
+    <p>Commencez par créer un graphe basé sur le nombre de fois où la page d'accueil a été affichée en cliquant sur :
+    </p>
+    <code>stats > cocktail > DisplayedHomeCount</code>
+    <h3>Personnalisation du graphe</h3>
+    <ul>
+        <li>
+            <p>
+                Rennomer le graphe en cliquant dessus puis :<br/>
+                <code>Render Options > Graph Title</code><br/>
+                Entrez "Home page hits"
+            </p>
+        </li>
+        <li>
+            <p>
+                Rennomer la donnée en cliquant sur le graphe puis :<br/>
+                <code>Apply Function > Special > Set Legend Name</code><br/>
+                Entrez "Hits"
+            </p>
+        </li>
+        <li>
+            <p>
+                Changez la couleur de la courbe en cliquant sur le graphe puis :<br/>
+                <code>Apply Function > Special > Color</code><br/>
+                Entrez un code couleur en hexadecimal (ex: E3D3E3)
+            </p>
+        </li>
+        <li>
+            <p>
+                Définissez le fuseau horaire en cliquant sur le graphe puis :<br/>
+                <code>Render Options > X-Axis > Timzone</code><br/>
+                Entrez "Europe/Paris"
+            </p>
+        </li>
+    </ul>
+    <p>Le graphe ainsi obtenu devrait ressembler à celui-ci :</p>
+    <img src="../images/graph_home-hits.png" height="300">
+    <h3>Sauvegarde du dashborad</h3>
+    <p>Sauvegarder votre dashboard en cliquant sur le menu de gauche :
+    </p>
+    <code>Dashboard > Save As</code><br/>
+    Entrez Cocktail
+    <p>Le dashboard est maintenant sauvegardé et vous pouvez le partager, la dénomination du dashboard est présente dans l'URL.</p>
+    <h3>Graphe combinant deux métriques</h3>
+    <p>Créer deux graphes représentant :</p>
+    <ol>
+        <li>Le nombre de recherche effectuée (SearchedCocktailCount)</li>
+        <li>Le nombre de cocktails affichés (DisplayedCocktailCount)</li>
+    </ol>
+    <p>Cliquer sur l'un des graphes et faites le glisser sur l'autre graphe</p>
+    <h3>Personnalisation du graphe</h3>
+    <ul>
+        <li>
+            <p>
+                Rennomer le graphe en cliquant dessus puis :<br/>
+                <code>Render Options > Graph Title</code><br/>
+                Entrez "Searched vs Displayed"
+            </p>
+        </li>
+        <li>
+            <p>
+                Rennomer les données en cliquant sur le graphe, choisissez l'un puis l'autre des métriques au dessus des boutons puis :<br/>
+                <code>Apply Function > Special > Set Legend Name</code><br/>
+                Entrez "Searched" pour "SearchedCocktailCount" et "Displayed" pour "DisplayedCocktailCount"
+            </p>
+        </li>
+        <li>
+            <p>
+                Changez la couleur de la courbe en cliquant sur le graphe choisissez l'un puis l'autre des métriques au dessus des boutons puis :<br/>
+                <code>Apply Function > Special > Color</code><br/>
+                Entrez une couleur en anglais (ex: green et red)
+            </p>
+        </li>
+        <li>
+            <p>
+                Définissez le fuseau horaire en cliquant sur le graphe puis :<br/>
+                <code>Render Options > X-Axis > Timzone</code><br/>
+                Entrez "Europe/Paris"
+            </p>
+        </li>
+    </ul>
+    <p>Le graphe ainsi obtenu devrait ressembler à celui-ci :</p>
+    <img src="../images/graph_search-vs-displayed.png" height="300">
+    <h3>Sauvegarde du dashborad</h3>
+    <p>Sauvegarder votre dashboard en cliquant sur le menu de gauche :
+    </p>
+    <code>Dashboard > Save "Cocktail"</code><br/>
+
+    <h3>Appliquer un calcul (différence) sur deux métriques</h3>
+    <ul>
+        <li>
+            <p>
+                Cliquez sur le graphe créé précédement puis :<br />
+                <code>Graph Operations > Clone</code><br/>
+            </p>
+        </li>
+        <li>
+            <p>
+                Cliquez sur le graphe cloné précédement et sélectionnez les deux métriques puis :<br />
+                <code>Apply Function > Calculate > Difference</code><br/>
+            </p>
+        </li>
+    </ul>
+    <h3>Sauvegarde du dashborad</h3>
+    <p>Sauvegarder votre dashboard en cliquant sur le menu de gauche :
+    </p>
+    <code>Dashboard > Save "Cocktail"</code><br/>
+
+    <h3>Appliquer une transformation (dérivé)</h3>
+    <ul>
+        <li>
+            <p>
+                Cliquez sur le graphe créé précédement (celui cloné) puis :<br />
+                <code>Apply Function > Transform > Derivative</code><br/>
+            </p>
+        </li>
+        <li>
+            <p>
+                Rennomer le graphe en cliquant dessus puis :<br/>
+                <code>Render Options > Graph Title</code><br/>
+                Entrez "Unsatisfied users derivative"
+            </p>
+        </li>
+    </ul>
+    <p>Le graphe ainsi obtenu devrait ressembler à celui-ci :</p>
+    <img src="../images/graph_unsatisfied-user.png" height="300">
+    <h3>Sauvegarde du dashborad</h3>
+    <p>Sauvegarder votre dashboard en cliquant sur le menu de gauche :
+    </p>
+    <code>Dashboard > Save "Cocktail"</code><br/>
+
+</div>
