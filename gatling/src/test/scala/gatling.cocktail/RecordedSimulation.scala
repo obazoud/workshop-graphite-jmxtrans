@@ -8,7 +8,7 @@ class RecordedSimulation extends Simulation {
   val cocktails = csv("cocktail.csv").random
   val quantities = csv("quantity.csv").random
 
-  val baseUrl = "/cocktail";
+  val baseURL = "/cocktail";
 
 	val httpConf = {
     val baseUrl: String = "http://localhost:8080"
@@ -73,29 +73,29 @@ class RecordedSimulation extends Simulation {
     .feed(cocktails)
     .feed(quantities)
 		.exec(http("request_1")
-					.get("/cocktail/cocktail/")
+					.get(baseURL + "/cocktail/")
 					.headers(headers_1)
 			)
 		.pause(1)
 		.exec(http("request_3")
-					.get("/cocktail/cocktail/${cocktail}")
+					.get(baseURL + "/cocktail/${cocktail}")
 					.headers(headers_3)
 			)
 		.pause(660 milliseconds)
 		.exec(http("request_5")
-					.post("/cocktail/cart/add")
+					.post(baseURL + "/cart/add")
 					.headers(headers_5)
 						.param("""cocktail""", """${cocktail}""")
 						.param("""quantity""", """${quantity}""")
 			)
 		.pause(500 milliseconds)
 		.exec(http("request_7")
-					.get("/cocktail/cart/")
+					.get(baseURL + "/cart/")
 					.headers(headers_3)
 			)
 		.pause(236 milliseconds)
 		.exec(http("request_9")
-					.post("/cocktail/cart/buy")
+					.post(baseURL + "/cart/buy")
 					.headers(headers_5)
 						.param("""quantity-${cocktail}""", """${quantity}""")
 			)
