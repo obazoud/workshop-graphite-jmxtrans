@@ -4,6 +4,8 @@ import com.excilys.ebi.gatling.http.Predef._
 import akka.util.duration._
 
 class RecordedSimulation extends Simulation {
+  
+  val baseURL = "/"
 
   val cocktails = csv("cocktail.csv").random
 
@@ -69,29 +71,29 @@ class RecordedSimulation extends Simulation {
 	val scn = scenario("cocktail")
     .feed(cocktails)
 		.exec(http("request_1")
-					.get("/cocktail/cocktail/")
+					.get(baseURL)
 					.headers(headers_1)
 			)
 		.pause(1)
 		.exec(http("request_3")
-					.get("/cocktail/cocktail/${cocktail}")
+					.get(baseURL+"cocktail/${cocktail}")
 					.headers(headers_3)
 			)
 		.pause(660 milliseconds)
 		.exec(http("request_5")
-					.post("/cocktail/cart/add")
+					.post(baseURL+"cart/add")
 					.headers(headers_5)
 						.param("""cocktail""", """${cocktail}""")
 						.param("""quantity""", """1""")
 			)
 		.pause(500 milliseconds)
 		.exec(http("request_7")
-					.get("/cocktail/cart/")
+					.get(baseURL+"cart/")
 					.headers(headers_3)
 			)
 		.pause(236 milliseconds)
 		.exec(http("request_9")
-					.post("/cocktail/cart/buy")
+					.post(baseURL+"cart/buy")
 					.headers(headers_5)
 						.param("""quantity-${cocktail}""", """1""")
 			)
