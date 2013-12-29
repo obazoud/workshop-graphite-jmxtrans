@@ -4,10 +4,11 @@ import com.excilys.ebi.gatling.http.Predef._
 import akka.util.duration._
 
 class RecordedSimulation extends Simulation {
-  
-  val baseURL = "/"
 
   val cocktails = csv("cocktail.csv").random
+  val quantities = csv("quantity.csv").random
+
+  val baseUrl = "/cocktail";
 
 	val httpConf = {
     val baseUrl: String = "http://localhost:8080"
@@ -70,32 +71,33 @@ class RecordedSimulation extends Simulation {
 
 	val scn = scenario("cocktail")
     .feed(cocktails)
+    .feed(quantities)
 		.exec(http("request_1")
-					.get(baseURL)
+					.get("/cocktail/cocktail/")
 					.headers(headers_1)
 			)
 		.pause(1)
 		.exec(http("request_3")
-					.get(baseURL+"cocktail/${cocktail}")
+					.get("/cocktail/cocktail/${cocktail}")
 					.headers(headers_3)
 			)
 		.pause(660 milliseconds)
 		.exec(http("request_5")
-					.post(baseURL+"cart/add")
+					.post("/cocktail/cart/add")
 					.headers(headers_5)
 						.param("""cocktail""", """${cocktail}""")
-						.param("""quantity""", """1""")
+						.param("""quantity""", """${quantity}""")
 			)
 		.pause(500 milliseconds)
 		.exec(http("request_7")
-					.get(baseURL+"cart/")
+					.get("/cocktail/cart/")
 					.headers(headers_3)
 			)
 		.pause(236 milliseconds)
 		.exec(http("request_9")
-					.post(baseURL+"cart/buy")
+					.post("/cocktail/cart/buy")
 					.headers(headers_5)
-						.param("""quantity-${cocktail}""", """1""")
+						.param("""quantity-${cocktail}""", """${quantity}""")
 			)
 
 	setUp(scn.users(1000).ramp(200).protocolConfig(httpConf))
