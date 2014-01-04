@@ -6,13 +6,13 @@
 <p>Connectez-vous en SSH à l'adresse de votre Tomcat</p>
 
 {% highlight bash %}
-$ ssh ubuntu@{{page.group}}.tomcat.workshop-jmxtrans-graphite.com
+$ ssh ec2-user@{{page.group}}.tomcat.workshop-jmxtrans-graphite.com
 {% endhighlight %}
 
 <p>Récupérer l'application <a href="https://github.com/antoinemichaud/embedded-jmxtrans-samples">Cocktail</a></p>
 
 {% highlight bash %}
-$ git clone git@github.com:antoinemichaud/embedded-jmxtrans-samples.git
+$ git clone https://github.com/antoinemichaud/embedded-jmxtrans-samples.git
 {% endhighlight %}
 
 <p>Packagez et démarrez l'application : </p>
