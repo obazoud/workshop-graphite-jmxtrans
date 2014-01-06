@@ -15,6 +15,8 @@ $ ssh ec2-user@{{page.group}}.tomcat.workshop-jmxtrans-graphite.com
 $ git clone https://github.com/antoinemichaud/embedded-jmxtrans-samples.git
 {% endhighlight %}
 
+<p>Placez-vous dans le répertoire embedded-jmxtrans-samples/embedded-jmxtrans-webapp-coktail</p>
+
 <p>Packagez et démarrez l'application : </p>
 
 {% highlight bash %}
@@ -44,17 +46,28 @@ $ mvn clean package jetty:run
   </ul>
   Une fois la dépendance résolue, il faut configurer notre serveur JMXTrans embedded. JMXTrans embedded utilise un fichier JSON pour sa configuration.
   <ul>
-    <li>Créer un fichier </li>
-  
+    <li>Dans le répertoire src/main/resources, créer un fichier jmxtrans.json</li>  
   
 
 {% highlight bash %}
-$ 
+$ touch src/main/resources/jmxtrans.json
 {% endhighlight %}
 
 
-{% highlight bash %}
-$ 
+    <li>Pour commencer, on va faire pointer notre jmxtrans vers le serveur graphite.</li>
+
+{% highlight json %}
+{
+    "queries": [
+        {
+            "@class": "org.jmxtrans.embedded.output.GraphiteWriter",
+            "settings": {
+                "host": "ec2-54-216-108-209.eu-west-1.compute.amazonaws.com",
+                "port": "2003"
+            }
+        }
+    ]
+}
 {% endhighlight %}
 
 
