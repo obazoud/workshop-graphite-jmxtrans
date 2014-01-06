@@ -113,12 +113,60 @@ $ touch src/main/resources/jmxtrans.json
     <li>Dans demo/jvm, vous avez accès à plusieurs métriques de la JVM avec lesquelles vous pouvez commencer à jouer</li>
   </ul>
   
-  
-  
-{% highlight bash %}
-$
+<h2>Ajout de données métier</h2>
+<p>Afin de pouvoir prévoir de nouvelles évolutions de notre application, nous allons transmettre à Graphite des données métier.</p>
+
+<p>JMXTrans a l'avantage de permettre la configuration des données à transmettre avec de simples annotations JMX.</p>
+
+<p>Mettre en place un compteur de type "GAUGE" qui donne le nombre de fois que la page d'accueil a été affichée.</p>
+
+<p>Pour cela, vous pouvez suivre les étapes suivantes :</p>
+
+<ul>
+  <li>Créer le compteur displayedHomeCount (de préférence de type AtomicInteger pour les problèmes de concurrence)</li>
+  <li>Augmenter le compteur à chaque fois qu'un utilisateur envoie une requête GET sur la homepage</li>
+  <li>Exposer le contrôleur avec l'annotation @ManagedResource avec pour valeur "cocktail:type=CocktailController,name=CocktailController"</li>
+  <li>Créer un getter qui donne le compte et l'annoter avec @ManagedMetric</li>
+  <li>Ajouter la configuration suivante au début du fichier jmxtrans.json :</li>
+</ul>
+
+{% highlight json %}
+"queries": [
+        {
+            "objectName": "cocktail:type=CocktailController,name=CocktailController",
+            "resultAlias": "cocktail",
+            "attributes": [
+                "DisplayedHomeCount"
+            ]
+        }
+    ],
+    
+    ...
 {% endhighlight %}
 
+<ul>
+  <li>Créer les compteur searchedCocktailCount et displayedCocktailCount (de préférence de type AtomicInteger pour les problèmes de concurrence)</li>
+  <li>Augmenter le compteur à chaque fois qu'un utilisateur envoie une requête GET vers un cocktail ou cherche un cocktail</li>
+  <li>Créer un getter pour chacun qui donne le compte et l'annoter avec @ManagedMetric</li>
+  <li>Ajouter les lignes suivantes dans les attributs que nous avons commencé à écrire précédemment :</li>
+</ul>
+
+{% highlight json %}
+		...
+
+                "DisplayedCocktailCount",
+                "SearchedCocktailCount",
+                ...
+{% endhighlight %}
+
+<ul>
+  <li></li>
+</ul>
+
+<ul>
+  <li></li>
+</ul>
+  
 
 {% highlight bash %}
 $ 
