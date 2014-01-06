@@ -35,7 +35,6 @@
 	<body>
 
         <div class="logo"></div>
-        <div class="footer"></div>
 
 		<div class="reveal">
 
@@ -109,23 +108,29 @@
                     </section>
                     <section>
                         <h2>Communication</h2>
-                        <p>Reception des données en TCP ou UDP</p>
-                        <p>Stockage dans le moteur <i>Carbon</i></p>
+                        <div class="">
+                            <img class="fragment" src="img/input-graphite1.png">
+                            <img class="fragment" src="img/input-graphite2.png" style="position: absolute;left: 0;margin-left: 9%;background: none">
+                        </div>
+                        <p class="fragment">Stockage dans le moteur <i>Carbon</i></p>
                     </section>
                     <section>
                         <h2>Format des données</h2>
                         <p>Format par défaut utilisé : format plain text</p>
-                        <pre class="">
+                        <pre class="fragment">
 
  &lt;metric path&gt; &lt;metric value&gt; &lt;metric timestamp&gt;
                         </pre>
-                        <pre>
+                        <pre class="fragment">
 
  PORT=2003
  SERVER=graphite.your.org
  echo "local.random.diceroll 4 `date +%s`" | nc -q0 ${SERVER} ${PORT}
                         </pre>
                     </section>
+                </section>
+
+                <section>
                     <section>
                         <h2>Automatisation de l'alimentation :<br/>JMXTrans</h2>
                         <p>TODO</p>
