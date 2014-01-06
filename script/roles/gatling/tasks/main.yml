@@ -1,0 +1,9 @@
+---
+  - name: copy gatlind archive
+    copy: src=gatling-charts-highcharts-1.5.3-bundle.tar.gz dest=/home/ec2-user/tools
+
+  - name: unarchive gatling
+    command: /bin/tar xzf /home/ec2-user/tools/gatling-charts-highcharts-1.5.3-bundle.tar.gz -C /home/ec2-user/tools creates=/home/ec2-user/tools/gatling-charts-highcharts-1.5.3-bundle
+  
+  - name: download gatling file
+    git: repo=ssh://git@github.com/xebia-france/workshop-graphite-jmxtrans.git dest=/home/ec2-user/tools/gatling

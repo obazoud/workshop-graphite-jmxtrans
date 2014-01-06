@@ -1,0 +1,65 @@
+---
+  - name: install dependencies
+    yum: name={{item}} state=present enablerepo=epel
+    with_items:
+      - django-tagging
+      - Django
+      - python-zope-interface
+      - pycairo
+      - python-twisted
+      - httpd
+      - mod_wsgi
+      - python-pip
+      - gcc
+      - python26-devel
+
+  - name: install carbon dependency
+    pip: name={{item}}
+    with_items:
+      - whisper
+      - carbon
+      - graphite-web
+      - daemonize
+
+  - name : Install Custom Twisted
+    pip : name=Twisted version=11.1.0
+
+  - name : Copy restart script
+    copy : src=carbon-cache-restart.sh dest=/opt/graphite/bin/carbon-cache-restart.sh mode=755
+    notify:
+      - Restart carbon
+
+  - name : Install carbon conf file
+    copy : src=carbon.conf dest=/opt/graphite/conf/carbon.conf
+    notify:
+      - Restart carbon
+
+  - name : Install storage-schemas conf file
+    copy : src=storage-schemas.conf dest=/opt/graphite/conf/storage-schemas.conf
+    notify:
+      - Restart carbon
+
+  - name : Remove wsgi.conf
+    file : path=/etc/httpd/conf.d/wsgi.conf state=absent
+
+  - name : Install Vhost apache conf file
+    copy : src=graphite-vhost.conf dest=/etc/httpd/conf.d/vhost-graphite.conf
+    notify :
+      - Chown apache
+      - Restart Apache
+
+  - name : Install graphite.wsgi file
+    copy : src=graphite.wsgi dest=/opt/graphite/conf/graphite.wsgi
+    notify :
+      - Chown apache
+      - Restart Apache
+
+  - name : Install local_settings.py file
+    copy : src=local_settings.py dest=/opt/graphite/webapp/graphite/local_settings.py
+    notify :
+      - Sync DB
+      - Chown apache
+      - Restart Apache
+
+  - name : Restart Apache
+    service: name=httpd state=restarted enabled=true

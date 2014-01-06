@@ -1,0 +1,21 @@
+---
+
+  - name: install dependency for tomcat
+    yum : name={{item}} state=present enablerepo=epel
+    sudo: true
+    with_items :
+      - java-1.7.0-openjdk-devel
+      - tomcat7
+      - git
+
+  - name: create tools directory
+    file: path=/home/ec2-user/tools state=directory
+
+  - name: download maven
+    get_url: url=http://apache.crihan.fr/dist/maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz dest=/home/ec2-user/tools
+
+  - name: unarchive maven
+    command: /bin/tar xzf /home/ec2-user/tools/apache-maven-3.1.1-bin.tar.gz -C /home/ec2-user/tools creates=/home/ec2-user/tools/apache-maven-3.1.1-bin
+
+  - name: replace .bashrc
+    copy: src=.bashrc dest=/home/ec2-user/ backup=yes

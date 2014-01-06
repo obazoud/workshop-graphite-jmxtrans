@@ -1,0 +1,16 @@
+---
+  - name : Restart carbon
+    command : /opt/graphite/bin/carbon-cache-restart.sh
+
+  - name : Sync DB
+    command : python manage.py syncdb --noinput chdir=/opt/graphite/webapp/graphite
+
+  - name : Chown apache
+    command : chown -R apache:apache /opt/graphite/storage/
+
+  - name : Restart Apache
+    service: name=httpd state=restarted enabled=true
+    notify : Reload Apache
+
+  - name : Reload Apache # Second reload
+    service : name=httpd state=reloaded enabled=true

@@ -1,0 +1,23 @@
+---
+- name: create ec2 instance
+  hosts: local
+  gather_facts: false
+  connection: local
+  roles:
+    - ec2
+
+- name: configure ec2 instance for graphite
+  hosts: ${group_kibana}-graphite
+  user: ec2-user
+  sudo: yes
+  gather_facts: false
+  roles:
+    - graphite
+
+- name: configure ec2 instance for tomcat
+  hosts: ${group_kibana}-tomcat
+  user: ec2-user
+  gather_facts: false
+  roles:
+    - tomcat
+    - gatling
