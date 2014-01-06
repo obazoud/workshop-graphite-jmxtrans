@@ -6,7 +6,7 @@
 <p>Connectez-vous en SSH à l'adresse de votre Tomcat</p>
 
 {% highlight bash %}
-$ ssh ec2-user@{{page.group}}.tomcat.workshop-jmxtrans-graphite.com
+$ ssh ec2-user@{{page.group}}-tomcat-0-monitoring.aws.xebiatechevent.info
 {% endhighlight %}
 
 <p>Récupérer l'application <a href="https://github.com/antoinemichaud/embedded-jmxtrans-samples">Cocktail</a></p>
@@ -30,8 +30,10 @@ $ mvn clean package jetty:run
 
 <h2>Configuration de JMXTrans</h2>
 
+<p>Actuellement, il n'existe pas de moyen simple d'observer les données système, de la JVM, ainsi que le comportement de l'utilisateur sur l'application.</p>
+<p>Pour envoyer des données à Graphite, nous allons envoyer des données grâce à JMXTrans.</p>
 <p>
-  Pour nous éviter l'installation d'un serveur JMXTrans, nous allons utiliser JMXTrans Embedded.
+  Pour nous éviter l'installation d'un serveur JMXTrans, nous allons utiliser JMXTrans Embedded.</p>
   <ul>
     <li>Inclure le plugin maven de JMXTrans dans les sources de l'application Cocktail (utiliser VIM pour éditer le POM par exemple);</li>
     
@@ -44,40 +46,77 @@ $ mvn clean package jetty:run
 {% endhighlight %}
 
   </ul>
-  Une fois la dépendance résolue, il faut configurer notre serveur JMXTrans embedded. JMXTrans embedded utilise un fichier JSON pour sa configuration.
+  <p>Une fois la dépendance résolue, il faut configurer notre serveur JMXTrans embedded. JMXTrans embedded utilise un fichier JSON pour sa configuration.</p>
   <ul>
     <li>Dans le répertoire src/main/resources, créer un fichier jmxtrans.json</li>  
-  
+  </ul>
 
 {% highlight bash %}
 $ touch src/main/resources/jmxtrans.json
 {% endhighlight %}
-
-
-    <li>Pour commencer, on va faire pointer notre jmxtrans vers le serveur graphite.</li>
-
+  <ul>
+    <li>Pour commencer, on va faire pointer notre jmxtrans vers le serveur graphite et logger les données que nous envoyons à graphite avec SLF4J.</li>
+  </ul>
 {% highlight json %}
 {
-    "queries": [
+    "outputWriters": [
+        {
+            "@class": "org.jmxtrans.embedded.output.Slf4jWriter",
+            "settings": {
+                "enabled": "${jmxtrans.writer.slf4j.enabled:true}"
+            }
+        },
         {
             "@class": "org.jmxtrans.embedded.output.GraphiteWriter",
             "settings": {
-                "host": "ec2-54-216-108-209.eu-west-1.compute.amazonaws.com",
-                "port": "2003"
+                "host": "{{page.group}}-graphite-monitoring.aws.xebiatechevent.info",
+                "port": "2003",
+                "enabled": "true",
+                "namePrefix": "demo"
             }
         }
     ]
 }
 {% endhighlight %}
 
-
-{% highlight bash %}
-$ 
+  C'est Spring MVC qui va se charger d'aller chercher le fichier de configuration de jmxtrans
+  <ul>
+    <li>Ouvrir le fichier src/main/webapp/WEB-INF/spring-mvc-servlet.xml</li>
+    <li>Insérer les lignes suivantes :</li>
+  </ul>
+  
+{% highlight xml %}
+<beans ...
+       xmlns:jmxtrans="http://www.jmxtrans.org/schema/embedded"
+       xsi:schemaLocation="... http://www.jmxtrans.org/schema/embedded http://www.jmxtrans.org/schema/embedded/jmxtrans.xsd">
+		
+    <jmxtrans:jmxtrans>
+        <jmxtrans:configuration>classpath:jmxtrans.json</jmxtrans:configuration>
+        <jmxtrans:configuration>classpath:org/jmxtrans/embedded/config/tomcat-7.json</jmxtrans:configuration>
+        <jmxtrans:configuration>classpath:org/jmxtrans/embedded/config/jmxtrans-internals.json</jmxtrans:configuration>
+        <jmxtrans:configuration>classpath:org/jmxtrans/embedded/config/jvm-sun-hotspot.json</jmxtrans:configuration>
+    </jmxtrans:jmxtrans>
+    ...
+</beans>
+    
 {% endhighlight %}
 
+<ul>
+  <li>La première ligne concerne la configuration jmxtrans.json que nous venons d'écrire. Elle définit les canaux de sortie de jmxtrans et permettra plus loin dans cet atelier de définir les métriques métier.</li>
+  <li>Les trois dernières lignes permettent de définir les métriques du système et de la JVM.</li>
+</ul>
 
+<h2>Visualisation des données système sur Graphite :</h2>
+  
+  <ul>
+    <li>Rendez-vous sur l'adresse http://{{page.group}}-graphite-monitoring.aws.xebiatechevent.info</li>
+    <li>Dans demo/jvm, vous avez accès à plusieurs métriques de la JVM avec lesquelles vous pouvez commencer à jouer</li>
+  </ul>
+  
+  
+  
 {% highlight bash %}
-$ 
+$
 {% endhighlight %}
 
 
