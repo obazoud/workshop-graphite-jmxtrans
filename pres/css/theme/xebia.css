@@ -178,3 +178,24 @@ body {
     top: 5%;
     left: 3%;
 }
+
+.color1 {
+    color: #5C9034;
+}
+
+.color2 {
+    color: #A2993B;
+}
+
+.color3 {
+    color: #92354F;
+}
+
+.reveal.xebia pre {
+    box-shadow: none;
+}
+
+.reveal.xebia code {
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0,0,0,.3);
+}
