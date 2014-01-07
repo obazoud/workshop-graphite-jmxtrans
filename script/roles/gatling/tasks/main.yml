@@ -23,3 +23,11 @@
   - name: download src file
     get_url: url=https://github.com/xebia-france/workshop-graphite-jmxtrans/raw/master/gatling/src/test/scala/gatling.cocktail/RecordedSimulation.scala dest=/home/ec2-user/tools/gatling-simulation/src/gatling/cocktail
 
+  - create bin directory
+    file: path=/home/ec2-user/bin state=directory
+
+  - copy gatling launcher
+    copy: src=launch-gatling dest=/home/ec2-user/bin
+
+  - executable script
+    file: path=/home/ec2-user/bin/launch-gatling mode=0744

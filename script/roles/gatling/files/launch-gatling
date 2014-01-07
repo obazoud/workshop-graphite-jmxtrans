@@ -1,0 +1,2 @@
+/home/ec2-user/tools/gatling-charts-highcharts-1.5.3/bin/gatling.sh -sf /home/ec2-user/tools/gatling-simulation/src -df /home/ec2-user/tools/gatling-simulation/data -nr -s gatling.cocktail.RecordedSimulation
+

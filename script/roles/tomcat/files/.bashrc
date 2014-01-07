@@ -9,3 +9,5 @@ fi
 
 MVN_HOME=/home/ec2-user/tools/apache-maven-3.1.1
 PATH=$PATH:$MVN_HOME/bin
+PATH=$PATH:$HOME/bin
+

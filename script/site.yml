@@ -21,3 +21,12 @@
   roles:
     - tomcat
     - gatling
+
+- name: configure ec2 instance for seyren
+  hosts: ${group_kibana}-seyren
+  user: ec2-user
+  gather_facts: false
+  roles:
+    - tomcat
+    - seyren
+

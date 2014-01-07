@@ -33,6 +33,7 @@
     record={{ group_kibana }}-graphite-monitoring.aws.xebiatechevent.info
     type=CNAME
     ttl=1800
+    overwrite=yes
     value={{ item.public_dns_name }}
   with_items: ec2.instances
 
@@ -41,19 +42,19 @@
     region=eu-west-1
     key_name=graphite
     group=accept-all
-    instance_type=t1.micro
+    instance_type=m1.medium
     image=ami-c7c0d6b3
     count=1
     wait=yes
-  register: ec22
+  register: ec2_cocktail
 
 - name: Add instances to host group
   add_host: name={{ item.public_ip }} groups={{group_kibana}}-tomcat
-  with_items: ec22.instances
+  with_items: ec2_cocktail.instances
 
 - name: Add tag to instances
   ec2_tag: resource={{ item.id }} region=eu-west-1 state=present
-  with_items: ec22.instances
+  with_items: ec2_cocktail.instances
   args:
     tags:
       Name: graphite
@@ -61,7 +62,7 @@
 
 - name: Wait for SSH to come up
   wait_for: host={{item.public_ip}} port=22 delay=10 timeout=160 state=started
-  with_items: ec22.instances
+  with_items: ec2_cocktail.instances
 
 - name: register dns name
   route53: >
@@ -70,5 +71,45 @@
     record={{ group_kibana }}-cocktail-monitoring.aws.xebiatechevent.info
     type=CNAME
     ttl=1800
+    overwrite=yes
     value={{ item.public_dns_name }}
-  with_items: ec22.instances
+  with_items: ec2_cocktail.instances
+
+- name: Launch instances
+  ec2: >
+    region=eu-west-1
+    key_name=graphite
+    group=accept-all
+    instance_type=m1.medium
+    image=ami-c7c0d6b3
+    count=1
+    wait=yes
+  register: ec2_seyren
+
+- name: Add instances to host group
+  add_host: name={{ item.public_ip }} groups={{group_kibana}}-seyren
+  with_items: ec2_seyren.instances
+
+- name: Add tag to instances
+  ec2_tag: resource={{ item.id }} region=eu-west-1 state=present
+  with_items: ec2_seyren.instances
+  args:
+    tags:
+      Name: graphite
+      Group: ${group_kibana}
+
+- name: Wait for SSH to come up
+  wait_for: host={{item.public_ip}} port=22 delay=10 timeout=160 state=started
+  with_items: ec2_seyren.instances
+
+- name: register dns name
+  route53: >
+    command=create
+    zone=aws.xebiatechevent.info
+    record={{ group_kibana }}-seyren-monitoring.aws.xebiatechevent.info
+    type=CNAME
+    ttl=1800
+    overwrite=yes
+    value={{ item.public_dns_name }}
+  with_items: ec2_seyren.instances
+
