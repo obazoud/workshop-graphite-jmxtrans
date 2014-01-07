@@ -8,7 +8,7 @@ class RecordedSimulation extends Simulation {
   val cocktails = csv("cocktail.csv").random
   val quantities = csv("quantity.csv").random
 
-  val baseURL = "/cocktail";
+  val baseURL = "/";
 
 	val httpConf = {
     val baseUrl: String = "http://localhost:8080"
