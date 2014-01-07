@@ -18,6 +18,11 @@ et configurer la variable d'environnement GRAPHITE_URL pour la faire pointer ver
 $ export GRAPHITE_URL=http://{{page.group}}-graphite-monitoring.aws.xebiatechevent.info
 {% endhighlight %}
 
+Démarrer la base de données mongo :
+{% highlight bash %}
+sudo mongod --fork --syslog
+{% endhighlight %}
+
 Ensuite, nous allons démarrer le tomcat contenant le war de seyren
 
 {% highlight bash %}
