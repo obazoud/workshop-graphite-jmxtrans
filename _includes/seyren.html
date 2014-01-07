@@ -30,13 +30,14 @@ $ sudo service tomcat7 restart
 {% endhighlight %}
 
 <h3>Configurer une alerte</h3>
-Maintenant que Seyren pointe vers graphite, nous allons configurer une alerte afin d'indiquer quel métrique il faut configurer. Pour celà, aller avec votre navigateur sur l'URL, <a href="http://{{page.group}}-seyren-monitoring.aws.xebiatechevent.info:8080/seyren/">seyren</a>, et cliquer sur "Create check".
-
+Maintenant que Seyren pointe vers graphite, nous allons configurer une alerte afin d'indiquer quel métrique il faut configurer. Pour celà, aller avec votre navigateur sur l'URL, <a href="http://{{page.group}}-seyren-monitoring.aws.xebiatechevent.info:8080/seyren/" target="_blank">seyren</a>, et cliquer sur <code>Check > Create check</code>.
+<br/>
+<br/>
 Remplir la popup avec les informations suivantes :
 <ul>
   <li>Name -> itemSold</li>
   <li>Description -> Nombre d'item vendu</li>
-  <li>Target -> stats.sales.itemsCouter</li>
+  <li>Target -> stats.sales.itemsCounter</li>
   <li>warn level -> 2500</li>
   <li>error level -> 5000</li>
   <li>enabled -> true</li>
@@ -56,17 +57,25 @@ $ export SMTP_PASSWORD=a demander
 Ensuite, nous allons redémarrer le serveur tomcat
 
 {% highlight bash %}
-$ service tomcat restart
+$ sudo service tomcat7 restart
 {% endhighlight %}
 
-Maintenant, dans Seyren, nous allons rajouter une alerte pour afin d'être notifié quand le nombre de boissons commandés dépassent un certain seuil. Pour celà, dans seyren, cliquer sur Checks, puis cliquer sur la ligne itemSold. Cliquer ensuite sur "Add subscription".
+Maintenant, dans Seyren, nous allons rajouter une alerte pour afin d'être notifié quand le nombre de boissons commandés dépassent un certain seuil.
+<br/>Pour celà, dans seyren, cliquer sur <code>Checks</code>, puis cliquer sur la ligne <code>itemSold</code>.
+<br/>Cliquer ensuite sur <code>Add subscription</code>.
 
 <ul>
-<li>target -> your email</li>
-<li>type -> email</li>
-<li>error -> true</li>
-<li>warning -> false</li>
-<li>enabled -> true</li>
+    <li>target -> your email</li>
+    <li>type -> email</li>
+    <li>error -> true</li>
+    <li>warning -> false</li>
+    <li>enabled -> true</li>
 </ul>
 
 Quand le seuil defini en alerte est défini, vous recevrez un mail.
+
+<h3>Relancer Gatling pour dépasser le seul</h3>
+
+{% highlight bash %}
+$ launch-gatling
+{% endhighlight %}
