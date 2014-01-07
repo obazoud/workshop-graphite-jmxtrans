@@ -20,13 +20,13 @@ $ export GRAPHITE_URL=http://{{page.group}}-graphite-monitoring.aws.xebiatecheve
 
 Démarrer la base de données mongo :
 {% highlight bash %}
-sudo mongod --fork --syslog
+$ sudo mongod --fork --syslog
 {% endhighlight %}
 
 Ensuite, nous allons démarrer le tomcat contenant le war de seyren
 
 {% highlight bash %}
-$ service tomcat7 restart
+$ sudo service tomcat7 restart
 {% endhighlight %}
 
 <h3>Configurer une alerte</h3>
