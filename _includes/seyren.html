@@ -1,1 +1,34 @@
 <h2>Alerting avec Seyren</h2>
+
+Seyren est un outil open source permettant de lever des alertes si certains seuils sont dépassés. Nous allons prendre comme exemple de lever une alerte si le nombre de cocktail vendu est supérieur à 2500 par heure (par exemple par ce que nous n'avons pas les moyens d'en fabriquer plus).
+
+<h3>Démarrer Seyren et le brancher vers graphite</h3>
+
+Seyren est alimenté par les données de graphite. Nous allons donc lui donner les informations lui permettant de se connecter vers graphite afin de récupérer les données. Toute cette configuration s'effectue avec des variables d'environnements :
+
+{% highlight bash %}
+$ export GRAPHITE_URL=http://{{page.group}}.graphite.workshop-jmxtrans-graphite.com
+{% endhighlight %}
+
+Ensuite, nous allons démarré le tomcat contenant le war de seyren
+
+{% highlight bash %}
+$ service tomcat start
+{% endhighlight %}
+
+<h3>Configurer une alerte</h3>
+Maintenant que Seyren pointe vers graphite, nous allons configurer une alerte afin d'indiquer quel métrique il faut configurer. Pour celà, aller avec votre navigateur sur l'URL, http://{{page.group}}.seyren.workshop-jmxtrans-graphite.com, et cliquer sur "Create check".
+
+<h3>Ajouter une notification</h3>
+
+Dans cette partie, nous allons rajouter des alertes pour être notifié par mail quand les alertes seyren sont remontées. Dans un premier temps, nous allon configurer tomcat afin de lui indiquer la configuration du serveur smtp pour envoyer des mails.
+
+Ensuite, nous allons redémarrer le serveur tomcat
+
+{% highlight bash %}
+$ service tomcat restart
+{% endhighlight %}
+
+Maintenant, dans Seyren, nous allons rajouter une alerte pour afin d'être notifié quand le nombre de boissons commandés dépassent un certain seuil. Pour celà, dans seyren, cliquer sur Checks, puis cliquer sur la ligne itemSold. Cliquer ensuite sur "Add subscription".
+
+Relancer le test de charge gatling, 
