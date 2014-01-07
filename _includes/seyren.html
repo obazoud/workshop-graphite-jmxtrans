@@ -54,4 +54,9 @@ $ service tomcat restart
 
 Maintenant, dans Seyren, nous allons rajouter une alerte pour afin d'être notifié quand le nombre de boissons commandés dépassent un certain seuil. Pour celà, dans seyren, cliquer sur Checks, puis cliquer sur la ligne itemSold. Cliquer ensuite sur "Add subscription".
 
+target -> stats.sales.itemsCouter
+type -> email
+error -> true
+enabled -> true
+
 Relancer le test de charge gatling, 
