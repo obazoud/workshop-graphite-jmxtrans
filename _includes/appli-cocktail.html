@@ -133,7 +133,7 @@ $ mvn clean package jetty:run
     <li>Vous avez maintenant accès à plusieurs métriques de la JVM avec lesquelles vous pouvez commencer à jouer</li>
   </ul>
   
-<h2>Ajout d'un métrique métier</h2>
+<h2>Ajout d'une métrique métier</h2>
 <p>Afin de pouvoir prévoir de nouvelles évolutions de notre application, nous allons transmettre à Graphite des données métier.</p>
 
 <p>JMXTrans a l'avantage de permettre la configuration des données à transmettre avec de simples annotations JMX.</p>
@@ -149,7 +149,7 @@ $ mvn clean package jetty:run
   <li>Incrémenter le compteur à chaque appel de la page d'accueil</li>
   <li>Editer la méthode <code>home()</code><br/>
       Ajouter la ligne {% highlight ruby %}displayedHomeCount.incrementAndGet();{% endhighlight %}</li>
-  <li>Exposer le métrique en créant une nouvelle méthode<br/>
+  <li>Exposer la métrique en créant une nouvelle méthode<br/>
       {% highlight ruby %}@ManagedMetric(metricType = MetricType.GAUGE)
 public int getDisplayedHomeCount() {
     return displayedHomeCount.get();
@@ -170,7 +170,7 @@ $ vi src/main/resources/jmxtrans.json
 {% endhighlight %}
   </li>
   <li>
-      Ajouter le nouveau métrique
+      Ajouter la nouvelle métrique
       <br/>
       {% highlight json %}
 "queries": [
@@ -185,7 +185,7 @@ $ vi src/main/resources/jmxtrans.json
 ...
       {% endhighlight %}
   </li>
-  <li>Nous verrons un peut plus tard dans le TP comment exploiter ce métrique dans Graphite.</li>
+  <li>Nous verrons un peut plus tard dans le TP comment exploiter cette métrique dans Graphite.</li>
 </ul>
 
 <h3>Récupérer la totalité des métriques</h3>
