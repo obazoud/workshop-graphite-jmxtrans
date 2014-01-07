@@ -12,23 +12,25 @@ Pour commencer, connectez vous en ssh sur la machine seyren :
 $ ssh -i graphite.pem ec2-user@{{page.group}}-seyren-monitoring.aws.xebiatechevent.info
 {% endhighlight %}
 
-et configurer la variable d'environnement GRAPHITE_URL pour la faire pointer vers votre instance de graphite. Pour celà ouvrer le fichier sudo vim /usr/sbin/tomcat7 ;
-
+Configurer la variable d'environnement <code>GRAPHITE_URL</code> pour la faire pointer vers votre instance de graphite.
+<br/>
+<br/>
+Pour celà ouvrez le fichier :
 {% highlight bash %}
 $ vim sudo vim /usr/sbin/tomcat7
 {% endhighlight %}
 
-et rajouter la ligne :
+Ajoutez la ligne :
 {% highlight bash %}
 export GRAPHITE_URL=http://{{page.group}}-graphite-monitoring.aws.xebiatechevent.info
 {% endhighlight %}
 
-Démarrer la base de données mongo :
+Démarrez la base de données mongo :
 {% highlight bash %}
 $ sudo mongod --fork --syslog
 {% endhighlight %}
 
-Ensuite, nous allons démarrer le tomcat contenant le war de seyren
+Ensuite, démarrez le tomcat contenant le war de seyren :
 
 {% highlight bash %}
 $ sudo service tomcat7 restart
