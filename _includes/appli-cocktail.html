@@ -6,7 +6,7 @@
 <p>Connectez-vous en SSH à l'adresse de votre Tomcat</p>
 
 {% highlight bash %}
-$ ssh ec2-user@{{page.group}}-tomcat-0-monitoring.aws.xebiatechevent.info
+$ ssh ec2-user@{{page.group}}-cocktail-monitoring.aws.xebiatechevent.info
 {% endhighlight %}
 
 <p>Récupérer l'application <a href="https://github.com/antoinemichaud/embedded-jmxtrans-samples">Cocktail</a></p>
@@ -20,7 +20,7 @@ $ git clone https://github.com/antoinemichaud/embedded-jmxtrans-samples.git
 <p>Packagez et démarrez l'application : </p>
 
 {% highlight bash %}
-$ cd embedded-jmxtranns-samples
+$ cd embedded-jmxtrans-samples/embedded-jmxtrans-webapp-coktail
 $ mvn clean package jetty:run
 {% endhighlight %}
 
