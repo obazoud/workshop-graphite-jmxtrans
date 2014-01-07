@@ -1,0 +1,28 @@
+---
+  - name: upload seyren
+    sudo: true
+    copy: src=seyren.war dest=/var/lib/tomcat7/webapps/
+
+  - name: add mongo repository
+    sudo: true
+    copy: src=mongodb.repo dest=/etc/yum.repos.d/
+
+  - name: install mongo
+    yum : name={{item}} state=present
+    sudo: true
+    with_items :
+      - mongo-10gen
+      - mongo-10gen-server
+
+  - name: create db directory
+    sudo: true
+    file: path=/data/db state=directory
+
+  - name: launch mongo
+    sudo: true
+    command: /usr/bin/mongod --fork --syslog
+
+  - name: restart tomcat
+    sudo: true
+    service: name=tomcat7 state=restarted
+
