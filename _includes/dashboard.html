@@ -1,7 +1,7 @@
 <div>
 <h2>Dashboard Graphite</h2>
 
-<p>Par défault JMXTrans expose en JMX de nombreuses informations sur la machine virtuelle Java</p>
+<p>Par défaut, JMXTrans expose en JMX de nombreuses informations sur la machine virtuelle Java</p>
 
 <ul>
     <li>Garbage Collector</li>
@@ -16,15 +16,15 @@
     <li>Thread count</li>
 </ul>
 
-<p>Intéressons-nous aux métriques que vous avez créés dans les étapes précédantes : nous allons créer un dashboard
+<p>Intéressons-nous aux métriques que vous avez créés dans les étapes précédentes : nous allons créer un dashboard
     personnalisé pour notre boutique en ligne.</p>
 
 <p>Commencez par vous connecter à l'application web de <a href="http://{{page.group}}-graphite-monitoring.aws.xebiatechevent.info" target="_blank">Graphite</a></p>
 
 <p>Cliquez sur l'onglet <code>Dashboard</code></p>
 
-<p>Une fois sur le dashboard vous pouvez ajouter des graphes en navigant parmis les noeuds proposés. Les
-    statistiques JMX sont remontés dans les noeuds :</p>
+<p>Une fois sur le dashboard vous pouvez ajouter des graphes en naviguant parmi les noeuds proposés. Les
+    statistiques JMX sont remontées dans les noeuds :</p>
 <code>stats.cocktail.*</code>
 
 <h3>Configuration du dashboard</h3>
@@ -41,13 +41,13 @@
 <h4>Personnalisation du graphe</h4>
 <ul>
     <li>
-        Rennomer le graphe en cliquant dessus puis <code>Render Options > Graph Title</code><br/>
+        Renommez le graphe en cliquant dessus puis <code>Render Options > Graph Title</code><br/>
     </li>
     <li>
         Entrez <code>Home page hits</code>
     </li>
     <li>
-        Rennomer la métrique en cliquant sur le graphe puis <code>Apply Function > Special > Set Legend Name</code>
+        Renommez la métrique en cliquant sur le graphe puis <code>Apply Function > Special > Set Legend Name</code>
     </li>
     <li>
         Entrez <code>Hits</code>
@@ -81,29 +81,28 @@
 
 <p>Créer deux graphes représentant :</p>
 <ol>
-    <li>Le nombre de recherche effectuée (<code>SearchedCocktailCount</code>)</li>
+    <li>Le nombre de recherches effectuées (<code>SearchedCocktailCount</code>)</li>
     <li>Le nombre de cocktails affichés (<code>DisplayedCocktailCount</code>)</li>
 </ol>
-<p>Cliquer sur l'un des graphes et faites le glisser sur l'autre graphe.</p>
+<p>Cliquez sur l'un des graphes et faites le glisser sur l'autre graphe.</p>
 
 <h4>Personnalisation du graphe</h4>
 <ul>
     <li>
-        Rennomer le graphe en cliquant dessus puis <code>Render Options > Graph Title</code>
+        Renommez le graphe en cliquant dessus puis <code>Render Options > Graph Title</code>
     </li>
     <li>
         Entrez <code>Searched vs Displayed</code>
     </li>
     <li>
-        Rennomer les données en cliquant sur le graphe, choisissez l'un puis l'autre des métriques au dessus des
+        Renommez les données en cliquant sur le graphe, choisissez l'un puis l'autre des métriques au-dessus des
         boutons puis <code>Apply Function > Special > Set Legend Name</code>
     </li>
     <li>
         Entrez <code>Searched</code> pour <code>SearchedCocktailCount</code> et <code>Displayed</code> pour <code>DisplayedCocktailCount</code>
     </li>
     <li>
-        Changez la couleur de la courbe en cliquant sur le graphe choisissez l'un puis l'autre des métriques au
-        dessus des boutons puis <code>Apply Function > Special > Color</code>
+        Changez la couleur de la courbe en cliquant sur le graphe choisissez l'une puis l'autre des métriques au-dessus des boutons puis <code>Apply Function > Special > Color</code>
     </li>
     <li>
         Entrez une couleur en anglais (ex: <code>green</code> et <code>red</code>)
@@ -125,10 +124,10 @@
 <h3>Appliquer un calcul (différence) sur deux métriques</h3>
 <ul>
     <li>
-        Cliquez sur le graphe créé précédement puis <code>Graph Operations > Clone</code>
+        Cliquez sur le graphe créé précédemment puis <code>Graph Operations > Clone</code>
     </li>
     <li>
-        Cliquez sur le graphe cloné précédement et sélectionnez les deux métriques puis <code>Apply Function > Calculate
+        Cliquez sur le graphe cloné précédemment et sélectionnez les deux métriques puis <code>Apply Function > Calculate
         > Difference</code>
     </li>
 </ul>
@@ -143,7 +142,7 @@
         Cliquez sur le graphe créé précédement (celui cloné) puis <code>Apply Function > Transform > Derivative</code>
     </li>
     <li>
-        Rennomer le graphe en cliquant dessus puis <code>Render Options > Graph Title</code>
+        Renommez le graphe en cliquant dessus puis <code>Render Options > Graph Title</code>
     </li>
     <li>
         Entrez <code>Unsatisfied users derivative</code>
@@ -154,7 +153,7 @@
 
 <h4>Sauvegarde du dashborad</h4>
 
-<p>Sauvegarder votre dashboard en cliquant sur le menu de gauche <code>Dashboard > Save "Cocktail"</code></p>
+<p>Sauvegardez votre dashboard en cliquant sur le menu de gauche <code>Dashboard > Save "Cocktail"</code></p>
 
 
 <h3>Créer un camembert</h3>
@@ -163,7 +162,7 @@
         Cliquez sur le graphe appelé <code>Searched vs Displayed</code> puis <code>Graph Operations > Clone</code>
     </li>
     <li>
-        Cliquez sur le graphe créé précédement (celui cloné) puis <code>Graph Operations > Direct URL</code>
+        Cliquez sur le graphe créé précédemment (celui cloné) puis <code>Graph Operations > Direct URL</code>
         Copiez-coller l'adresse ainsi obtenue dans un éditeur de texte.
     </li>
     <li>
@@ -177,11 +176,11 @@
         </ul>
     </li>
     <li>
-        Supprimez le graphe créé précédant (celui cloné) puis, depuis la barre de menu <code>Graphs > New Graph > From
+        Supprimez le graphe créé précédent (celui cloné) puis, depuis la barre de menu <code>Graphs > New Graph > From
         URL</code>
     </li>
     <li>
-        Collez l'URL éditée précédement puis cliquez sur OK.
+        Collez l'URL éditée précédemment puis cliquez sur OK.
     </li>
 </ul>
 
@@ -200,7 +199,7 @@
         Commencez par créer un graphe basé sur le nombre de cocktails vendus <code>stats > sales > itemsCounter</code>
     </li>
     <li>
-        Puis un autre basé sur le nombre de commande passées <code>stats > sales > ordersCounter</code>
+        Puis un autre basé sur le nombre de commandes passées <code>stats > sales > ordersCounter</code>
     </li>
     <li>
         Faites glissez l'un des graphes sur l'autre pour les assembler
@@ -212,7 +211,7 @@
         Entrez <code>Average cocktails per commands</code>
     </li>
     <li>
-        Cliquez sur le graphe, selectionnez la métrique correspondante aux cocktails puis celui des commandes et faites
+        Cliquez sur le graphe, selectionnez la métrique correspondant aux cocktails puis celui des commandes et faites
         le ratio <code>Apply Function > Calculate > Ratio</code>
     </li>
     <li>
@@ -248,7 +247,7 @@
         Entrez <code>Revenue per hour</code>
     </li>
     <li>
-        Rennomer la métrique en cliquant sur le graphe puis <code>Apply Function > Special > Set Legend Name</code>
+        Renommer la métrique en cliquant sur le graphe puis <code>Apply Function > Special > Set Legend Name</code>
         Entrez <code>Revenue</code>
     </li>
     <li>
@@ -270,12 +269,12 @@
 
 <h4>Sauvegarde du dashborad</h4>
 
-<p>Sauvegarder votre dashboard en cliquant sur le menu de gauche <code>Dashboard > Save "Cocktail"</code>
+<p>Sauvegardez votre dashboard en cliquant sur le menu de gauche <code>Dashboard > Save "Cocktail"</code>
 </p>
 
 <h3>Note sur Graphite</h3>
 <p>
-    Il existe d'autres fonctions très utilises dans Graphite que nous n'aborderons pas dans ce TP, mais vous pouvez y
+    Il existe d'autres fonctions très utiles dans Graphite que nous n'aborderons pas dans ce TP, mais vous pouvez y
     jeter un coup d'oeil par vous même :
 </p>
 <ol>
@@ -302,11 +301,11 @@
         Cliquez sur le graphe puis <code>Graph Operations > Direct URL</code>
     </li>
     <li>
-        Copiez coller le lien puis ouvrez un nouvel onglet, collez le lien copié puis ajouter l'adresse du serveur
+        Copiez-collez le lien puis ouvrez un nouvel onglet, collez le lien copié puis ajouter l'adresse du serveur
         Graphite au début de l'URL
     </li>
     <li>
-        Enregistrez l'image sur votre machine, puis envoyez là en pièce jointe d'un email
+        Enregistrez l'image sur votre machine, puis envoyez-la en pièce jointe d'un email
     </li>
 </ul>
 
@@ -316,7 +315,7 @@
     <li>Ouvrez un nouveau dashboard</li>
     <li>Cliquez sur <code>Dashboard</code></li>
     <li>Puis <code>Edit Dashboard</code></li>
-    <li>Copiez/collez le contenue de ce <a href="https://github.com/xebia-france/workshop-graphite-jmxtrans/blob/gh-pages/_resources/dashboard-demo.json" target="_blank">dashboard</a></li>
+    <li>Copiez/collez le contenu de ce <a href="https://github.com/xebia-france/workshop-graphite-jmxtrans/blob/gh-pages/_resources/dashboard-demo.json" target="_blank">dashboard</a></li>
     <li>Cliquez sur <code>Update</code></li>
 </ul>
 </div>
