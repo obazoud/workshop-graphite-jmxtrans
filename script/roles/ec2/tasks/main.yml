@@ -23,7 +23,7 @@
       Group: ${group_kibana}
 
 - name: Wait for SSH to come up
-  wait_for: host={{item.public_ip}} port=22 delay=10 timeout=120 state=started
+  wait_for: host={{item.public_ip}} port=22 delay=10 timeout=160 state=started
   with_items: ec2.instances
 
 - name: register dns name
@@ -43,7 +43,7 @@
     group=accept-all
     instance_type=t1.micro
     image=ami-c7c0d6b3
-    count=2
+    count=1
     wait=yes
   register: ec22
 
@@ -60,14 +60,14 @@
       Group: ${group_kibana}
 
 - name: Wait for SSH to come up
-  wait_for: host={{item.public_ip}} port=22 delay=10 timeout=120 state=started
+  wait_for: host={{item.public_ip}} port=22 delay=10 timeout=160 state=started
   with_items: ec22.instances
 
 - name: register dns name
   route53: >
     command=create
     zone=aws.xebiatechevent.info
-    record={{ group_kibana }}-cocktail-{{ item.ami_launch_index }}-monitoring.aws.xebiatechevent.info
+    record={{ group_kibana }}-cocktail-monitoring.aws.xebiatechevent.info
     type=CNAME
     ttl=1800
     value={{ item.public_dns_name }}

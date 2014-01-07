@@ -2,8 +2,24 @@
   - name: copy gatlind archive
     copy: src=gatling-charts-highcharts-1.5.3-bundle.tar.gz dest=/home/ec2-user/tools
 
+  - name: create gatling directory
+    file: path=/home/ec2-user/tools/{{item}} state=directory
+    with_items:
+      - gatling-simulation
+      - gatling-simulation/src
+      - gatling-simulation/data
+      - gatling-simulation/src/gatling
+      - gatling-simulation/src/gatling/cocktail
+
   - name: unarchive gatling
     command: /bin/tar xzf /home/ec2-user/tools/gatling-charts-highcharts-1.5.3-bundle.tar.gz -C /home/ec2-user/tools creates=/home/ec2-user/tools/gatling-charts-highcharts-1.5.3-bundle
   
-  - name: download gatling file
-    git: repo=ssh://git@github.com/xebia-france/workshop-graphite-jmxtrans.git dest=/home/ec2-user/tools/gatling
+  - name: download data file
+    get_url: url={{item}} dest=/home/ec2-user/tools/gatling-simulation/data
+    with_items:
+      - https://github.com/xebia-france/workshop-graphite-jmxtrans/raw/master/gatling/src/test/resources/data/cocktail.csv
+      - https://github.com/xebia-france/workshop-graphite-jmxtrans/raw/master/gatling/src/test/resources/data/quantity.csv
+
+  - name: download src file
+    get_url: url=https://github.com/xebia-france/workshop-graphite-jmxtrans/raw/master/gatling/src/test/scala/gatling.cocktail/RecordedSimulation.scala dest=/home/ec2-user/tools/gatling-simulation/src/gatling/cocktail
+
