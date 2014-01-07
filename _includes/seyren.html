@@ -39,9 +39,12 @@ enabled -> true
 
 Dans cette partie, nous allons rajouter des alertes pour être notifié par mail quand les alertes seyren sont remontées. Dans un premier temps, nous allon configurer tomcat afin de lui indiquer la configuration du serveur smtp pour envoyer des mails.
 {% highlight bash %}
-$ export GRAPHITE_URL=http://{{page.group}}-graphite-monitoring.aws.xebiatechevent.info
+$ export SMTP_HOST=smtp.gmail.com
+$ export SMTP_PORT=587
+$ export SMTP_FROM=techtrend.xebia@gmail.com
+$ export SMTP_USERNAME=techtrend.xebia
+$ export SMTP_PASSWORD=a demander
 {% endhighlight %}
-
 
 Ensuite, nous allons redémarrer le serveur tomcat
 
