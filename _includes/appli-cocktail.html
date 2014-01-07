@@ -21,7 +21,7 @@ $ ssh -i graphite.pem ec2-user@{{page.group}}-cocktail-monitoring.aws.xebiateche
 $ git clone https://github.com/antoinemichaud/embedded-jmxtrans-samples.git
 {% endhighlight %}
 
-<p>Placez-vous dans le répertoire embedded-jmxtrans-samples/embedded-jmxtrans-webapp-coktail</p>
+<p>Placez-vous dans le répertoire embedded-jmxtrans-samples/embedded-jmxtrans-webapp-coktail :</p>
 
 {% highlight bash %}
 $ cd embedded-jmxtrans-samples/embedded-jmxtrans-webapp-coktail
@@ -33,7 +33,7 @@ $ cd embedded-jmxtrans-samples/embedded-jmxtrans-webapp-coktail
 $ mvn clean package jetty:run
 {% endhighlight %}
 
-<p>Une fois l'application terminée de démarrer, rendez-vous sur le port 8080 de votre toute nouvelle application : <a href="http://{{page.group}}-cocktail-monitoring.aws.xebiatechevent.info:8080">cocktail</a></a></p>
+<p>Une fois l'application terminée de démarrer, rendez-vous sur le port 8080 de votre toute nouvelle application : <a href="http://{{page.group}}-cocktail-monitoring.aws.xebiatechevent.info:8080" target="_blank">cocktail</a></p>
 
 <p>Et pour nous récompenser de cette dure labeur achetons-nous 1 sex on the beach.
 
@@ -57,11 +57,11 @@ $ mvn clean package jetty:run
   </ul>
   <p>Une fois la dépendance résolue, il faut configurer notre serveur JMXTrans embedded. JMXTrans embedded utilise un fichier JSON pour sa configuration.</p>
   <ul>
-    <li>Dans le répertoire src/main/resources, créer un fichier jmxtrans.json</li>  
+    <li>Dans le répertoire src/main/resources, éditer le fichier jmxtrans.json</li>
   </ul>
 
 {% highlight bash %}
-$ touch src/main/resources/jmxtrans.json
+$ vi src/main/resources/jmxtrans.json
 {% endhighlight %}
   <ul>
     <li>Pour commencer, on va faire pointer notre jmxtrans vers le serveur graphite et logger les données que nous envoyons à graphite avec SLF4J.</li>
@@ -91,14 +91,18 @@ $ touch src/main/resources/jmxtrans.json
   C'est Spring MVC qui va se charger d'aller chercher le fichier de configuration de jmxtrans
   <ul>
     <li>Ouvrir le fichier src/main/webapp/WEB-INF/spring-mvc-servlet.xml</li>
-    <li>Insérer les lignes suivantes :</li>
+    <li>Ajouter/modifier les lignes suivantes :</li>
   </ul>
   
 {% highlight xml %}
-<beans ...
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:jmxtrans="http://www.jmxtrans.org/schema/embedded"
-       xsi:schemaLocation="... http://www.jmxtrans.org/schema/embedded http://www.jmxtrans.org/schema/embedded/jmxtrans.xsd">
-		
+       xsi:schemaLocation="
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+                http://www.jmxtrans.org/schema/embedded http://www.jmxtrans.org/schema/embedded/jmxtrans.xsd">
+
     <jmxtrans:jmxtrans>
         <jmxtrans:configuration>classpath:jmxtrans.json</jmxtrans:configuration>
         <jmxtrans:configuration>classpath:org/jmxtrans/embedded/config/tomcat-7.json</jmxtrans:configuration>
@@ -115,68 +119,101 @@ $ touch src/main/resources/jmxtrans.json
   <li>Les trois dernières lignes permettent de définir les métriques du système et de la JVM.</li>
 </ul>
 
-<h2>Visualisation des données système sur Graphite :</h2>
+<h2>Redémarrer Jetty pour prendre en compte les modifications</h2>
+
+{% highlight bash %}
+$ mvn clean package jetty:run
+{% endhighlight %}
+
+<h2>Visualisation des données système sur Graphite</h2>
   
   <ul>
-    <li>Rendez-vous sur l'adresse http://{{page.group}}-graphite-monitoring.aws.xebiatechevent.info</li>
-    <li>Dans demo/jvm, vous avez accès à plusieurs métriques de la JVM avec lesquelles vous pouvez commencer à jouer</li>
+    <li>Rendez-vous sur <a href="http://{{page.group}}-graphite-monitoring.aws.xebiatechevent.info" target="_blank">Graphite</a></li>
+    <li>Dans la colonne de gauche, sélectionner <code>Graphite > stats > jvm</code></li>
+    <li>Vous avez maintenant accès à plusieurs métriques de la JVM avec lesquelles vous pouvez commencer à jouer</li>
   </ul>
   
-<h2>Ajout de données métier</h2>
+<h2>Ajout d'un métrique métier</h2>
 <p>Afin de pouvoir prévoir de nouvelles évolutions de notre application, nous allons transmettre à Graphite des données métier.</p>
 
 <p>JMXTrans a l'avantage de permettre la configuration des données à transmettre avec de simples annotations JMX.</p>
 
-<p>Mettre en place un compteur de type "GAUGE" qui donne le nombre de fois que la page d'accueil a été affichée.</p>
-
-<p>Pour cela, vous pouvez suivre les étapes suivantes :</p>
+<h3>Mettre en place un compteur de type "GAUGE" qui donne le nombre de fois que la page d'accueil a été affichée.</h3>
 
 <ul>
-  <li>Créer le compteur displayedHomeCount (de préférence de type AtomicInteger pour les problèmes de concurrence)</li>
-  <li>Augmenter le compteur à chaque fois qu'un utilisateur envoie une requête GET sur la homepage</li>
-  <li>Exposer le contrôleur avec l'annotation @ManagedResource avec pour valeur "cocktail:type=CocktailController,name=CocktailController"</li>
-  <li>Créer un getter qui donne le compte et l'annoter avec @ManagedMetric</li>
-  <li>Ajouter la configuration suivante au début du fichier jmxtrans.json :</li>
-</ul>
-
-{% highlight json %}
-"queries": [
-        {
-            "objectName": "cocktail:type=CocktailController,name=CocktailController",
-            "resultAlias": "cocktail",
-            "attributes": [
-                "DisplayedHomeCount"
-            ]
-        }
-    ],
-    
+  <li>Créer un compteur <code>displayedHomeCount</code></li>
+  <li>Ouvrir le fichier <code>vi src/main/java/org/jmxtrans/embedded/samples/cocktail/cocktail/CocktailController.java</code></li>
+  <li>Ajouter une variable privée<br/>
+      {% highlight ruby %}private final AtomicInteger displayedHomeCount = new AtomicInteger();{% endhighlight %}
+  </li>
+  <li>Incrémenter le compteur à chaque appel de la page d'accueil</li>
+  <li>Editer la méthode <code>home()</code><br/>
+      Ajouter la ligne {% highlight ruby %}displayedHomeCount.incrementAndGet();{% endhighlight %}</li>
+  <li>Exposer le métrique en créant une nouvelle méthode<br/>
+      {% highlight ruby %}@ManagedMetric(metricType = MetricType.GAUGE)
+public int getDisplayedHomeCount() {
+    return displayedHomeCount.get();
+}{% endhighlight %}
+  </li>
+  <li>
+      Exposer le contrôleur avec l'annotation<br/>
+      {% highlight ruby %}@ManagedResource("cocktail:type=CocktailController,name=CocktailController")
+@Controller
+public class CocktailController {
     ...
 {% endhighlight %}
-
-<ul>
-  <li>Créer les compteur searchedCocktailCount et displayedCocktailCount (de préférence de type AtomicInteger pour les problèmes de concurrence)</li>
-  <li>Augmenter le compteur à chaque fois qu'un utilisateur envoie une requête GET vers un cocktail ou cherche un cocktail</li>
-  <li>Créer un getter pour chacun qui donne le compte et l'annoter avec @ManagedMetric</li>
-  <li>Ajouter les lignes suivantes dans les attributs que nous avons commencé à écrire précédemment :</li>
+  </li>
+  <li>
+      Ouvrir le fichier jmxtrans.json pour envoyer la nouvelle métrique vers Graphite
+      {% highlight bash %}
+$ vi src/main/resources/jmxtrans.json
+{% endhighlight %}
+  </li>
+  <li>
+      Ajouter le nouveau métrique
+      <br/>
+      {% highlight json %}
+"queries": [
+    {
+        "objectName": "cocktail:type=CocktailController,name=CocktailController",
+        "resultAlias": "cocktail",
+        "attributes": [
+            "DisplayedHomeCount"
+        ]
+    }
+],
+...
+      {% endhighlight %}
+  </li>
+  <li>Nous verrons un peut plus tard dans le TP comment exploiter ce métrique dans Graphite.</li>
 </ul>
 
-{% highlight json %}
-		...
-
-                "DisplayedCocktailCount",
-                "SearchedCocktailCount",
-                ...
+<h3>Récupérer la totalité des métriques</h3>
+{% highlight bash %}
+$ git stash ; git checkout -b solution origin/solution
 {% endhighlight %}
 
+<h3>Valoriser correctement l'URL de Graphite</h3>
 <ul>
-  <li></li>
+    <li>Ouvrir le fichier <code>jmxtrans.json</code><br/>
+{% highlight bash %}
+$ vi src/main/resources/jmxtrans.json
+{% endhighlight %}
+    </li>
+    <li>Remplacer la ligne</br>
+{% highlight ruby %}
+"host": "io-graphite-monitoring.aws.xebiatechevent.info",
+{% endhighlight %}
+    </li>
+    <li>Par<br/>
+{% highlight ruby %}
+"host": "{{page.group}}-graphite-monitoring.aws.xebiatechevent.info",
+{% endhighlight %}
+    </li>
 </ul>
 
-<ul>
-  <li></li>
-</ul>
-  
+<h2>Redémarrer Jetty pour prendre en compte les modifications</h2>
 
 {% highlight bash %}
-$ 
+$ mvn clean package jetty:run
 {% endhighlight %}
