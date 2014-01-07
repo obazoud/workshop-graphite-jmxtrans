@@ -28,12 +28,14 @@ $ service tomcat7 restart
 Maintenant que Seyren pointe vers graphite, nous allons configurer une alerte afin d'indiquer quel métrique il faut configurer. Pour celà, aller avec votre navigateur sur l'URL, http://{{page.group}}-seyren-monitoring.aws.xebiatechevent.info, et cliquer sur "Create check".
 
 Remplir la popup avec les informations suivantes :
-Name -> itemSold
-Description -> Nombre d'item vendu
-Target -> stats.sales.itemsCouter
-warn level -> 2500
-error level -> 5000
-enabled -> true
+<ul>
+Name -> itemSold</li>
+  <li>Description -> Nombre d'item vendu</li>
+  <li>Target -> stats.sales.itemsCouter</li>
+  <li>warn level -> 2500</li>
+  <li>error level -> 5000</li>
+  <li>enabled -> true</li>
+</ul>
 
 <h3>Ajouter une notification</h3>
 
@@ -54,9 +56,10 @@ $ service tomcat restart
 
 Maintenant, dans Seyren, nous allons rajouter une alerte pour afin d'être notifié quand le nombre de boissons commandés dépassent un certain seuil. Pour celà, dans seyren, cliquer sur Checks, puis cliquer sur la ligne itemSold. Cliquer ensuite sur "Add subscription".
 
-target -> stats.sales.itemsCouter
-type -> email
-error -> true
-enabled -> true
-
+<ul>
+<li>target -> stats.sales.itemsCouter</li>
+<li>type -> email</li>
+<li>error -> true</li>
+<li>enabled -> true</li>
+</ul>
 Relancer le test de charge gatling, 
