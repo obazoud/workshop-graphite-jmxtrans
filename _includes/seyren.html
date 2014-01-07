@@ -6,18 +6,27 @@ Seyren est un outil open source permettant de lever des alertes si certains seui
 
 Seyren est alimenté par les données de graphite. Nous allons donc lui donner les informations lui permettant de se connecter vers graphite afin de récupérer les données. Toute cette configuration s'effectue avec des variables d'environnements :
 
+Pour commencer, connectez vous en ssh sur la machine seyren :
+
 {% highlight bash %}
-$ export GRAPHITE_URL=http://{{page.group}}.graphite.workshop-jmxtrans-graphite.com
+$ ssh ec2-user@{{page.group}}-seyren-monitoring.aws.xebiatechevent.info
+{% endhighlight %}
+
+et configurer la variable d'environnement GRAPHITE_URL pour la faire pointer vers votre instance de graphite.
+
+{% highlight bash %}
+$ export GRAPHITE_URL=http://{{page.group}}-graphite-monitoring.aws.xebiatechevent.info
 {% endhighlight %}
 
 Ensuite, nous allons démarré le tomcat contenant le war de seyren
 
 {% highlight bash %}
-$ service tomcat start
+$ service tomcat7 restart
 {% endhighlight %}
 
+
 <h3>Configurer une alerte</h3>
-Maintenant que Seyren pointe vers graphite, nous allons configurer une alerte afin d'indiquer quel métrique il faut configurer. Pour celà, aller avec votre navigateur sur l'URL, http://{{page.group}}.seyren.workshop-jmxtrans-graphite.com, et cliquer sur "Create check".
+Maintenant que Seyren pointe vers graphite, nous allons configurer une alerte afin d'indiquer quel métrique il faut configurer. Pour celà, aller avec votre navigateur sur l'URL, http://{{page.group}}-seyren-monitoring.aws.xebiatechevent.info, et cliquer sur "Create check".
 
 <h3>Ajouter une notification</h3>
 
