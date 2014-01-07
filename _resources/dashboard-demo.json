@@ -1,0 +1,94 @@
+[
+    {
+        "target": [
+            "alias(stats.cocktail.DisplayedHomeCount,\"Hits\")"
+        ],
+        "title": "Home hits",
+        "tz": "Europe/Paris",
+        "colorList": "purple"
+    },
+    {
+        "target": [
+            "color(alias(stats.cocktail.DisplayedCocktailCount,\"Displayed\"), \"red\")",
+            "color(alias(stats.cocktail.SearchedCocktailCount,\"Searched\"),\"green\")"
+        ],
+        "title": "Searched vs Displayed",
+        "tz": "Europe/Paris",
+        "colorList": "green"
+    },
+    {
+        "tz": "Europe/Paris",
+        "title": "Added comments",
+        "target": [
+            "alias(stats.cocktail.AddedCommentCount,\"Count\")"
+        ]
+    },
+    {
+        "target": [
+            "derivative(diffSeries(color(alias(stats.cocktail.SearchedCocktailCount,\"Searched\"),\"green\"),color(alias(stats.cocktail.DisplayedCocktailCount,\"Displayed\"), \"red\")))"
+        ],
+        "title": "Unsatisfied users derivative",
+        "hideLegend": "true",
+        "graphOnly": "false",
+        "tz": "Europe/Paris",
+        "colorList": "#6a205f"
+    },
+    {
+        "target": [
+            "alias(stats.cocktail.DisplayedCocktailCount,\"Displayed\")",
+            "alias(stats.cocktail.SearchedCocktailCount,\"Searched\")"
+        ],
+        "title": "Displayed vs Searched cocktails",
+        "graphType": "pie",
+        "height": "250",
+        "width": "400",
+        "tz": "Europe/Paris"
+    },
+    {
+        "target": [
+            "legendValue(alias(divideSeries(stats.sales.itemsCounter,stats.sales.ordersCounter),\"cocktails per command\"),\"avg\")"
+        ],
+        "title": "Average cocktails per commands",
+        "tz": "Europe/Paris",
+        "colorList": "brown"
+    },
+    {
+        "tz": "Europe/Paris",
+        "title": "Revenue per hour",
+        "target": [
+            "alias(summarize(stats.sales.revenueInCentsCounter,\"1h\"),\"Revenue\")"
+        ]
+    },
+    {
+        "hideLegend": "true",
+        "colorList": "2EB9B9",
+        "tz": "Europe/Paris",
+        "target": [
+            "stats.sales.itemsCounter"
+        ],
+        "title": "Cocktail sold"
+    },
+    {
+        "hideLegend": "true",
+        "colorList": "77B300",
+        "tz": "Europe/Paris",
+        "target": [
+            "stats.sales.ordersCounter"
+        ],
+        "title": "Ordered command"
+    },
+    {
+        "target": [
+            "legendValue(alias(divideSeries(stats.sales.itemsCounter,stats.sales.ordersCounter),\"Cocktails per command\"),\"avg\")"
+        ],
+        "title": "Average cocktails per commands",
+        "tz": "Europe/Paris"
+    },
+    {
+        "target": [
+            "alias(summarize(stats.sales.revenueInCentsCounter,\"1h\"),\"Revenue\")"
+        ],
+        "title": "Revenue per hour",
+        "tz": "Europe/Paris"
+    }
+]
