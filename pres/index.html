@@ -136,15 +136,17 @@
                 <h2>Format des données</h2>
 
                 <p>Format par défaut utilisé : format plain text</p>
-                        <pre class="fragment">
-
- &lt;metric path&gt; &lt;metric value&gt; &lt;metric timestamp&gt;
+                        <pre>
+                            <code data-trim>
+&lt;metric path&gt; &lt;metric value&gt; &lt;metric timestamp&gt;
+                            </code>
                         </pre>
-                        <pre class="fragment">
-
+                        <pre>
+                            <code data-trim>
  PORT=2003
- SERVER=graphite.your.org
- echo "local.random.diceroll 4 `date +%s`" | nc -q0 ${SERVER} ${PORT}
+SERVER=graphite.your.org
+echo "local.random.diceroll 4 `date +%s`" | nc -q0 ${SERVER} ${PORT}
+                            </code>
                         </pre>
             </section>
         </section>
