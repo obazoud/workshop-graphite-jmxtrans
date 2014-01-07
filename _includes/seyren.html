@@ -12,10 +12,14 @@ Pour commencer, connectez vous en ssh sur la machine seyren :
 $ ssh ec2-user@{{page.group}}-seyren-monitoring.aws.xebiatechevent.info
 {% endhighlight %}
 
-et configurer la variable d'environnement GRAPHITE_URL pour la faire pointer vers votre instance de graphite. Pour celà ouvrer le fichier sudo vim /usr/sbin/tomcat7 er rajouter la ligne :
+et configurer la variable d'environnement GRAPHITE_URL pour la faire pointer vers votre instance de graphite. Pour celà ouvrer le fichier sudo vim /usr/sbin/tomcat7 ;
 
 {% highlight bash %}
 $ vim sudo vim /usr/sbin/tomcat7
+{% endhighlight %}
+
+et rajouter la ligne :
+{% highlight bash %}
 export GRAPHITE_URL=http://{{page.group}}-graphite-monitoring.aws.xebiatechevent.info
 {% endhighlight %}
 
