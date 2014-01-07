@@ -18,19 +18,30 @@ et configurer la variable d'environnement GRAPHITE_URL pour la faire pointer ver
 $ export GRAPHITE_URL=http://{{page.group}}-graphite-monitoring.aws.xebiatechevent.info
 {% endhighlight %}
 
-Ensuite, nous allons démarré le tomcat contenant le war de seyren
+Ensuite, nous allons démarrer le tomcat contenant le war de seyren
 
 {% highlight bash %}
 $ service tomcat7 restart
 {% endhighlight %}
 
-
 <h3>Configurer une alerte</h3>
 Maintenant que Seyren pointe vers graphite, nous allons configurer une alerte afin d'indiquer quel métrique il faut configurer. Pour celà, aller avec votre navigateur sur l'URL, http://{{page.group}}-seyren-monitoring.aws.xebiatechevent.info, et cliquer sur "Create check".
+
+Remplir la popup avec les informations suivantes :
+Name -> itemSold
+Description -> Nombre d'item vendu
+Target -> stats.sales.itemsCouter
+warn level -> 2500
+error level -> 5000
+enabled -> true
 
 <h3>Ajouter une notification</h3>
 
 Dans cette partie, nous allons rajouter des alertes pour être notifié par mail quand les alertes seyren sont remontées. Dans un premier temps, nous allon configurer tomcat afin de lui indiquer la configuration du serveur smtp pour envoyer des mails.
+{% highlight bash %}
+$ export GRAPHITE_URL=http://{{page.group}}-graphite-monitoring.aws.xebiatechevent.info
+{% endhighlight %}
+
 
 Ensuite, nous allons redémarrer le serveur tomcat
 
