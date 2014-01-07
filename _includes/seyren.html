@@ -50,7 +50,13 @@ Remplir la popup avec les informations suivantes :
 
 <h3>Ajouter une notification</h3>
 
-Dans cette partie, nous allons rajouter des alertes pour être notifié par mail quand les alertes seyren sont remontées. Dans un premier temps, nous allon configurer tomcat afin de lui indiquer la configuration du serveur smtp pour envoyer des mails.
+Dans cette partie, nous allons rajouter des alertes pour être notifié par mail quand les alertes seyren sont remontées. Dans un premier temps, nous allon configurer tomcat afin de lui indiquer la configuration du serveur smtp pour envoyer des mails. Editer le fichier
+{% highlight bash %}
+$ vim sudo vim /usr/sbin/tomcat7
+{% endhighlight %}
+
+et rajouter les variables suivantes
+
 {% highlight bash %}
 $ export SMTP_HOST=smtp.gmail.com
 $ export SMTP_PORT=587
