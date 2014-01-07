@@ -18,11 +18,3 @@
     sudo: true
     file: path=/data/db state=directory
 
-  - name: launch mongo
-    sudo: true
-    command: /usr/bin/mongod --fork --syslog
-
-  - name: restart tomcat
-    sudo: true
-    service: name=tomcat7 state=restarted
-
