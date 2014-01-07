@@ -9,5 +9,5 @@ XKE slot & tech event prepared by
 
 First speak on January 7 2014 at Xebia HQ
 
-- See [presentation](http://xebia-france.github.io/workshop-graphite-jmxtrans/pres/index.html "Presentation")
-- See [workshop](http://xebia-france.github.io/workshop-graphite-jmxtrans/ "Workshop")
+- See <a href="http://xebia-france.github.io/workshop-graphite-jmxtrans/pres/index.html" target="_blank" title="Presentation">slides</a>
+- See <a href="http://xebia-france.github.io/workshop-graphite-jmxtrans/" target="_blank" title="Workshop">workshop</a>
