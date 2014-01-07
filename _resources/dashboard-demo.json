@@ -90,5 +90,14 @@
         ],
         "title": "Revenue per hour",
         "tz": "Europe/Paris"
+    },
+    {
+        "target": [
+            "stats.sales.itemsCounter"
+        ],
+        "title": "Cocktail sold",
+        "tz": "Europe/Paris",
+        "hideYAxis": "false",
+        "hideLegend": "true"
     }
 ]
