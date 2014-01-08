@@ -185,7 +185,19 @@ $ vi src/main/resources/jmxtrans.json
 ...
       {% endhighlight %}
   </li>
-  <li>Nous verrons un peut plus tard dans le TP comment exploiter cette métrique dans Graphite.</li>
+</ul>
+<h3>Redémarrer Jetty pour prendre en compte les modifications</h3>
+
+{% highlight bash %}
+$ mvn clean package jetty:run
+{% endhighlight %}
+
+<h3>Visualisation des données système sur Graphite</h3>
+
+<ul>
+    <li>Rendez-vous sur <a href="http://{{page.group}}-graphite-monitoring.aws.xebiatechevent.info" target="_blank">Graphite</a></li>
+    <li>Dans la colonne de gauche, sélectionner <code>Graphite > stats > cocktail > DisplayedHomeCount</code></li>
+    <li>Vous avez maintenant accès au graphe représentant le nombre d'affichage de la page Home</li>
 </ul>
 
 <h3>Récupérer la totalité des métriques</h3>
