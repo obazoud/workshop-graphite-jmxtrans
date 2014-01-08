@@ -6,7 +6,7 @@ Seyren est un outil open source permettant de lever des alertes si certains seui
 
 Seyren est alimenté par les données de graphite. Nous allons donc lui donner les informations lui permettant de se connecter vers graphite afin de récupérer les données. Toute cette configuration s'effectue avec des variables d'environnements :
 
-Pour commencer, connectez vous en ssh sur la machine seyren :
+Pour commencer, connectez-vous en ssh sur la machine seyren :
 
 {% highlight bash %}
 $ ssh -i graphite.pem ec2-user@{{page.group}}-seyren-monitoring.aws.xebiatechevent.info
@@ -15,7 +15,7 @@ $ ssh -i graphite.pem ec2-user@{{page.group}}-seyren-monitoring.aws.xebiatecheve
 Configurer la variable d'environnement <code>GRAPHITE_URL</code> pour la faire pointer vers votre instance de graphite.
 <br/>
 <br/>
-Pour celà ouvrez le fichier :
+Pour cela ouvrez le fichier :
 {% highlight bash %}
 $ sudo vim /usr/sbin/tomcat7
 {% endhighlight %}
@@ -37,13 +37,13 @@ $ sudo service tomcat7 restart
 {% endhighlight %}
 
 <h3>Configurer une alerte</h3>
-Maintenant que Seyren pointe vers graphite, nous allons configurer une alerte afin d'indiquer quel métrique il faut configurer. Pour celà, aller avec votre navigateur sur l'URL, <a href="http://{{page.group}}-seyren-monitoring.aws.xebiatechevent.info:8080/seyren/" target="_blank">seyren</a>, et cliquer sur <code>Check > Create check</code>.
+Maintenant que Seyren pointe vers graphite, nous allons configurer une alerte afin d'indiquer quelle métrique monitorer. Pour cela, allez avec votre navigateur sur l'URL, <a href="http://{{page.group}}-seyren-monitoring.aws.xebiatechevent.info:8080/seyren/" target="_blank">seyren</a>, et cliquez sur <code>Check > Create check</code>.
 <br/>
 <br/>
 Remplir la popup avec les informations suivantes :
 <ul>
   <li>Name -> itemSold</li>
-  <li>Description -> Nombre d'item vendu</li>
+  <li>Description -> Nombre d'items vendus</li>
   <li>Target -> stats.sales.itemsCounter</li>
   <li>warn level -> 2500</li>
   <li>error level -> 5000</li>
@@ -52,7 +52,7 @@ Remplir la popup avec les informations suivantes :
 
 <h3>Ajouter une notification</h3>
 
-Dans cette partie, nous allons rajouter des alertes pour être notifié par mail quand les alertes seyren sont remontées. Dans un premier temps, nous allon configurer tomcat afin de lui indiquer la configuration du serveur smtp pour envoyer des mails. Editer le fichier
+Dans cette partie, nous allons rajouter des alertes pour être notifié par mail quand les alertes seyren sont remontées. Dans un premier temps, nous allons configurer tomcat afin de lui indiquer la configuration du serveur smtp pour envoyer des mails. Editer le fichier de lancement de tomcat
 {% highlight bash %}
 $ sudo vim /usr/sbin/tomcat7
 {% endhighlight %}
@@ -73,9 +73,9 @@ Ensuite, nous allons redémarrer le serveur tomcat
 $ sudo service tomcat7 restart
 {% endhighlight %}
 
-Maintenant, dans Seyren, nous allons rajouter une alerte pour afin d'être notifié quand le nombre de boissons commandés dépassent un certain seuil.
-<br/>Pour celà, dans seyren, cliquer sur <code>Checks</code>, puis cliquer sur la ligne <code>itemSold</code>.
-<br/>Cliquer ensuite sur <code>Add subscription</code>.
+Maintenant, dans Seyren, nous allons rajouter une alerte pour afin d'être notifié quand le nombre de boissons commandées dépassent un certain seuil.
+<br/>Pour cela, dans seyren, cliquez sur <code>Checks</code>, puis cliquez sur la ligne <code>itemSold</code>.
+<br/>Cliquez ensuite sur <code>Add subscription</code>.
 
 <ul>
     <li>target -> your email</li>
@@ -85,9 +85,9 @@ Maintenant, dans Seyren, nous allons rajouter une alerte pour afin d'être notif
     <li>enabled -> true</li>
 </ul>
 
-Quand le seuil defini en alerte est défini, vous recevrez un mail.
+Quand le seuil d'alerte est défini, vous recevrez un mail.
 
-<h3>Relancer Gatling pour dépasser le seuil</h3>
+<h3>Relancez Gatling pour observer un dépassement de seuil</h3>
 
 {% highlight bash %}
 $ launch-gatling
