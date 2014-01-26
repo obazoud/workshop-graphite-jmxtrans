@@ -3,13 +3,33 @@
 
 <p>Ouvrez votre <a href="http://{{page.group}}-graphite-monitoring.aws.xebiatechevent.info" target="_blank">web app Graphite</a>. C'est dans cette interface que vous pourrez admirer les magnifiques graphes que vous allez bientôt commencer à alimenter.</p>
 
-<p>Pour vous connecter aux machines, récupérer le fichier <a href="https://raw.github.com/xebia-france/workshop-graphite-jmxtrans/master/script/graphite.pem">graphite.pem</a> ou le fichier <a href="../data/kibana.ppk">kibana.ppk</a> pour les utilisateurs Windows, dans votre répertoire courant (la clef sera révoquée après le workshop). N'oubliez pas de changer les permissions sur le fichier :</p>
+<p>Pour vous connecter aux machines, récupérer le fichier <a href="https://raw.github.com/xebia-france/workshop-graphite-jmxtrans/master/script/graphite.pem">graphite.pem</a> ou le fichier <a href="https://raw.github.com/xebia-france/workshop-graphite-jmxtrans/master/script/graphite.ppk">graphite.ppk</a> pour les utilisateurs Windows, dans votre répertoire courant (la clef sera révoquée après le workshop). N'oubliez pas de changer les permissions sur le fichier :</p>
+
+<h3>Connectez-vous en SSH à l'adresse de votre Tomcat</h3>
+
+<h4>Pour windows :</h4>
+<ul>
+  <li>Si vous ne l'avez pas, récupérez <a href="http://the.earth.li/~sgtatham/putty/latest/x86/putty.exe">PuTTY</a></li>
+  <li>Entrez l'adresse {{page.group}}-cocktail-monitoring.aws.xebiatechevent.info à l'emplacement de l'encadré rouge ci-dessous</li>
+</ul>
+
+<img src="images/putty_ip.png" alt="putty ip"/>
+
+<ul>
+  <li>Suivez ensuite les screenshots suivants :</li>
+</ul>
+
+<img src="images/putty_user.png" alt="putty2"/>
+<img src="images/putty_key1.png" alt="putty3"/>
+<img src="images/putty_key2.png" alt="putty4"/>
+<img src="images/putty_open_connection.png" alt="putty5"/>
+
+<h4>Pour Linux ou Mac</h4>
+
 {% highlight bash %}
 $ chmod 600 graphite.pem
 {% endhighlight %}
 
-
-<p>Connectez-vous en SSH à l'adresse de votre Tomcat</p>
 
 {% highlight bash %}
 $ ssh -i graphite.pem ec2-user@{{page.group}}-cocktail-monitoring.aws.xebiatechevent.info
