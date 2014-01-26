@@ -19,12 +19,12 @@
   <li>Suivez ensuite les screenshots suivants :</li>
 </ul>
 
-<img src="images/putty_user.png" alt="putty2"/>
-<img src="images/putty_key1.png" alt="putty3"/>
-<img src="images/putty_key2.png" alt="putty4"/>
-<img src="images/putty_open_connection.png" alt="putty5"/>
+<img src="../images/putty_user.png" alt="putty2"/>
+<img src="../images/putty_key1.png" alt="putty3"/>
+<img src="../images/putty_key2.png" alt="putty4"/>
+<img src="../images/putty_open_connection.png" alt="putty5"/>
 
-<h4>Pour Linux ou Mac</h4>
+<h4>Pour Linux ou Mac :</h4>
 
 {% highlight bash %}
 $ chmod 600 graphite.pem
@@ -34,6 +34,8 @@ $ chmod 600 graphite.pem
 {% highlight bash %}
 $ ssh -i graphite.pem ec2-user@{{page.group}}-cocktail-monitoring.aws.xebiatechevent.info
 {% endhighlight %}
+
+<h3>Utilisation de l'application Cocktail :</h3>
 
 <p>Récupérer l'application <a href="https://github.com/antoinemichaud/embedded-jmxtrans-samples">Cocktail</a></p>
 
